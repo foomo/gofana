@@ -4,7 +4,10 @@ go 1.25
 
 replace github.com/foomo/gofana => ../
 
-require github.com/foomo/gofana v0.0.0-00010101000000-000000000000
+require (
+	github.com/foomo/gofana v0.0.0-00010101000000-000000000000
+	github.com/grafana/grafana-foundation-sdk/go v0.0.0-20251008104357-2e5c9f991a96
+)
 
 require (
 	atomicgo.dev/cursor v0.2.0 // indirect
@@ -44,7 +47,6 @@ require (
 	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gookit/color v1.6.0 // indirect
-	github.com/grafana/grafana-foundation-sdk/go v0.0.0-20251008104357-2e5c9f991a96 // indirect
 	github.com/grafana/grafana-openapi-client-go v0.0.0-20251118002049-9bc70ad4530f // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect

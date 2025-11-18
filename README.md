@@ -4,7 +4,7 @@
 [![goreleaser](https://github.com/foomo/gofana/actions/workflows/release.yml/badge.svg)](https://github.com/foomo/gofana/actions)
 
 <p align="center">
-  <img alt="foomo" src="docs/public/foomo.png"/>
+  <img alt="foomo" src="docs/public/logo.png"/>
 </p>
 
 # gofana
