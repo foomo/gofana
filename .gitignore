@@ -48,3 +48,6 @@ go.work.sum
 ## Vitepress
 node_modules/
 !docs/.vitepress
+
+## Docker
+!.dockerignore
