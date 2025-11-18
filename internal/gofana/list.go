@@ -9,6 +9,7 @@ import (
 
 func List(roots []string) ([]string, error) {
 	var paths []string
+
 	for _, root := range roots {
 		if err := filepath.WalkDir(root, func(p string, d fs.DirEntry, err error) error {
 			if err != nil || !d.IsDir() {
@@ -25,5 +26,6 @@ func List(roots []string) ([]string, error) {
 			return nil, err
 		}
 	}
+
 	return paths, nil
 }

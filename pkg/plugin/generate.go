@@ -15,7 +15,6 @@ func NewGenerate(folderUID string, resources []any) *cobra.Command {
 		Use:   "generate",
 		Short: "Generate resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
-
 			for _, resource := range resources {
 				switch t := resource.(type) {
 				case *dashboard.DashboardBuilder:
@@ -23,6 +22,7 @@ func NewGenerate(folderUID string, resources []any) *cobra.Command {
 					if err != nil {
 						return err
 					}
+
 					if err := pkgmanifest.Generate(pkgmanifest.Dashboard(d, folderUID), c.GetBool("raw")); err != nil {
 						return err
 					}
@@ -30,6 +30,7 @@ func NewGenerate(folderUID string, resources []any) *cobra.Command {
 					pterm.Fatal.Printfln("unknown resource type: %v", resource)
 				}
 			}
+
 			return nil
 		},
 	}

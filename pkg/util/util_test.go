@@ -5,10 +5,11 @@ import (
 
 	"github.com/foomo/gofana/pkg/util"
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 )
 
-func TestYamlToMap(t *testing.T) {
+func TestMustYamlToMap(t *testing.T) {
+	t.Parallel()
+
 	s := `
 		elimiter: ","
 		format: json
@@ -25,7 +26,6 @@ func TestYamlToMap(t *testing.T) {
 		replace: false
 		source: description
 	`
-	o, err := util.YamlToMap(s)
-	require.NoError(t, err)
+	o := util.MustYamlToMap(s)
 	assert.Len(t, o, 6)
 }

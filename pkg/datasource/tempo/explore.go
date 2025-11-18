@@ -11,11 +11,13 @@ func MustGetExploreURL(filters ...tempo.TraceqlFilter) string {
 	if err != nil {
 		panic(err)
 	}
+
 	return ret
 }
 
 func GetExploreURL(filters ...tempo.TraceqlFilter) (string, error) {
 	datasource := Datasource()
+
 	return explore.NewLink(datasource, &tempo.TempoQuery{
 		RefId:            "A",
 		QueryType:        util.ToPtr("traceqlSearch"),

@@ -14,6 +14,7 @@ func NewClient(ctx *config.Context) (*client.GrafanaHTTPAPI, error) {
 	if ctx == nil {
 		return nil, errors.New("no context provided")
 	}
+
 	if ctx.Grafana == nil {
 		return nil, errors.New("grafana not configured")
 	}
@@ -37,9 +38,11 @@ func NewClient(ctx *config.Context) (*client.GrafanaHTTPAPI, error) {
 	if ctx.Grafana.User != "" && ctx.Grafana.Password != "" {
 		cfg.BasicAuth = url.UserPassword(ctx.Grafana.User, ctx.Grafana.Password)
 	}
+
 	if ctx.Grafana.APIToken != "" {
 		cfg.APIKey = ctx.Grafana.APIToken
 	}
+
 	if ctx.Grafana.OrgID != 0 {
 		cfg.OrgID = ctx.Grafana.OrgID
 	}

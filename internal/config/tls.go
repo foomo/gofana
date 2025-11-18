@@ -39,7 +39,7 @@ type TLS struct {
 func (cfg *TLS) ToStdTLSConfig() *tls.Config {
 	// TODO: CertData, KeyData, CAData
 	return &tls.Config{
-		//nolint:gosec
+
 		InsecureSkipVerify: cfg.Insecure,
 		ServerName:         cfg.ServerName,
 		NextProtos:         cfg.NextProtos,

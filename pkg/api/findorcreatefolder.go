@@ -15,10 +15,12 @@ func FindOrCreateFolders(ctx context.Context, client *client.GrafanaHTTPAPI, fol
 		if _, err := FindOrCreateFolder(ctx, client, folder.Name, folder.UID, parentUID); err != nil {
 			return err
 		}
+
 		if err := FindOrCreateFolders(ctx, client, folder.Folders, folder.UID); err != nil {
 			return err
 		}
 	}
+
 	return nil
 }
 
@@ -29,6 +31,7 @@ func FindOrCreateFolder(ctx context.Context, client *client.GrafanaHTTPAPI, name
 	if parentUID != "" {
 		getParams.SetParentUID(util.ToPtr(parentUID))
 	}
+
 	response, err := client.Folders.GetFolders(getParams)
 	if err != nil {
 		return "", err

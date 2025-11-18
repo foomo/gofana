@@ -20,6 +20,7 @@ func Execute(folderUID string, folders api.Folder, resources ...any) {
 		if say, err := cowsay.Say(msg, cowsay.BallonWidth(80)); err == nil {
 			msg = say
 		}
+
 		return msg
 	}
 
@@ -30,14 +31,17 @@ func Execute(folderUID string, folders api.Folder, resources ...any) {
 			pterm.Error.Println(say("It's time to panic"))
 			pterm.Error.Println(fmt.Sprintf("%v", r))
 			pterm.Error.Println(string(debug.Stack()))
+
 			code = 1
 		}
+
 		os.Exit(code)
 	}()
 
 	if err := root.Execute(); err != nil {
 		pterm.Error.Println(say("Ups, something went wrong"))
 		pterm.Error.Println(err.Error())
+
 		code = 1
 	}
 }

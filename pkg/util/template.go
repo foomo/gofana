@@ -10,6 +10,7 @@ func MustRenderTemplate(v string, data any) string {
 	if err != nil {
 		panic(err)
 	}
+
 	return r
 }
 
@@ -22,9 +23,11 @@ func RenderTemplate(v string, data any) (string, error) {
 
 	// Execute the template, passing a string variable to replace the placeholder
 	buf := new(strings.Builder)
+
 	err = tmpl.Execute(buf, data)
 	if err != nil {
 		return "", err
 	}
+
 	return buf.String(), nil
 }

@@ -17,7 +17,6 @@ func NewDeploy(folderUID string, folder api.Folder, resources []any) *cobra.Comm
 		Use:   "deploy",
 		Short: "Generate & deploy resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
-
 			cfg, err := config.Load(c, cmd)
 			if err != nil {
 				return err
@@ -39,6 +38,7 @@ func NewDeploy(folderUID string, folder api.Folder, resources []any) *cobra.Comm
 					if err != nil {
 						return err
 					}
+
 					if err := pkgmanifest.Generate(pkgmanifest.Dashboard(d, folderUID), c.GetBool("raw")); err != nil {
 						return err
 					}
@@ -46,6 +46,7 @@ func NewDeploy(folderUID string, folder api.Folder, resources []any) *cobra.Comm
 					pterm.Fatal.Printfln("unknown resource type: %v", resource)
 				}
 			}
+
 			return nil
 		},
 	}

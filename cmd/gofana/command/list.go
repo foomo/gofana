@@ -16,14 +16,15 @@ func NewList() *cobra.Command {
 		Use:   "list",
 		Short: "List gofana resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
-
 			pterm.Debug.Println("Searching for gofana resources...", c.GetStringSlice("path"))
+
 			paths, err := gofana.List(c.GetStringSlice("path"))
 			if err != nil {
 				return err
 			}
 
 			pterm.Info.Println(strings.Join(paths, "\n"))
+
 			return nil
 		},
 	}

@@ -17,7 +17,6 @@ func NewGenerate() *cobra.Command {
 		Use:   "generate",
 		Short: "Generate resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
-
 			paths, err := gofana.List(c.GetStringSlice("path"))
 			if err != nil {
 				return err
@@ -28,14 +27,17 @@ func NewGenerate() *cobra.Command {
 				if c.GetBool("raw") {
 					sh.Args = append(sh.Args, "--raw")
 				}
+
 				sh.Env = os.Environ()
 				sh.Stdout = os.Stdout
 				sh.Stderr = os.Stderr
 				pterm.Debug.Println("running command:", sh.String())
+
 				if err := sh.Run(); err != nil {
 					return err
 				}
 			}
+
 			return nil
 		},
 	}

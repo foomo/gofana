@@ -16,7 +16,6 @@ func NewDeploy() *cobra.Command {
 		Use:   "generate",
 		Short: "Generate resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
-
 			cfg, err := config.Load(c, cmd)
 			if err != nil {
 				return err
