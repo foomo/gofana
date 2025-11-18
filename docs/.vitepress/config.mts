@@ -11,7 +11,7 @@ export default defineConfig({
 	title: 'gofana',
 	description: 'CLI utility to manage Grafana resources',
 	themeConfig: {
-		logo: '/foomo.png',
+		logo: '/logo.png',
 		nav: [
 			{
 				text: `${version}`,
@@ -82,7 +82,7 @@ export default defineConfig({
 	},
 	head: [
 		['meta', { name: 'theme-color', content: '#ffffff' }],
-		['link', { rel: 'icon', href: '/foomo.png' }],
+		['link', { rel: 'icon', href: '/logo.png' }],
 		['meta', { name: 'author', content: 'foomo by bestbytes' }],
 		['meta', { property: 'og:title', content: 'foomo/gofana' }],
 		[
