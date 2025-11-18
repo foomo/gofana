@@ -1,0 +1,114 @@
+version: 2
+
+builds:
+  - binary: gofana
+    main: ./cmd/gofana/main.go
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    goarm:
+      - '7'
+    flags:
+      - -trimpath
+      - -tags=safe
+    ldflags:
+      - -s -w -X github.com/foomo/gofana/cmd/gofana/command.version={{.Version}}
+
+release:
+  prerelease: auto
+
+archives:
+  - formats: [ tar.gz ]
+    format_overrides:
+      - goos: windows
+        formats: [ zip ]
+
+changelog:
+  use: github-native
+
+brews:
+  - repository:
+      owner: foomo
+      name: homebrew-tap
+    caveats: "gofana --help"
+    homepage: "https://github.com/foomo/gofana"
+    description: "CLI utility to manage Grafana resources"
+    test: |
+      system "#{bin}/gofana --version"
+
+dockers:
+  - use: buildx
+    goos: linux
+    goarch: amd64
+    dockerfile: Dockerfile
+    image_templates:
+      - '{{ if eq .Prerelease "" }}foomo/gofana:latest-amd64{{ end }}'
+      - 'foomo/gofana:{{ .Version }}-amd64'
+      - '{{ if eq .Prerelease "" }}foomo/gofana:{{ .Major }}-amd64{{ end }}'
+      - '{{ if eq .Prerelease "" }}foomo/gofana:{{ .Major }}.{{ .Minor }}-amd64{{ end }}'
+    build_flag_templates:
+      - '--pull'
+      # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
+      - '--label=org.opencontainers.image.title={{.ProjectName}}'
+      - '--label=org.opencontainers.image.description=CLI utility to manage Grafana resources'
+      - '--label=org.opencontainers.image.source={{.GitURL}}'
+      - '--label=org.opencontainers.image.url={{.GitURL}}'
+      - '--label=org.opencontainers.image.documentation={{.GitURL}}'
+      - '--label=org.opencontainers.image.created={{.Date}}'
+      - '--label=org.opencontainers.image.revision={{.FullCommit}}'
+      - '--label=org.opencontainers.image.version={{.Version}}'
+      - '--platform=linux/amd64'
+
+  - use: buildx
+    goos: linux
+    goarch: arm64
+    dockerfile: Dockerfile
+    image_templates:
+      - '{{ if eq .Prerelease "" }}foomo/gofana:latest-arm64{{ end }}'
+      - 'foomo/gofana:{{ .Version }}-arm64'
+      - '{{ if eq .Prerelease "" }}foomo/gofana:{{ .Major }}-arm64{{ end }}'
+      - '{{ if eq .Prerelease "" }}foomo/gofana:{{ .Major }}.{{ .Minor }}-arm64{{ end }}'
+    build_flag_templates:
+      - '--pull'
+      # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
+      - '--label=org.opencontainers.image.title={{.ProjectName}}'
+      - '--label=org.opencontainers.image.description=CLI utility to manage Grafana resources'
+      - '--label=org.opencontainers.image.source={{.GitURL}}'
+      - '--label=org.opencontainers.image.url={{.GitURL}}'
+      - '--label=org.opencontainers.image.documentation={{.GitURL}}'
+      - '--label=org.opencontainers.image.created={{.Date}}'
+      - '--label=org.opencontainers.image.revision={{.FullCommit}}'
+      - '--label=org.opencontainers.image.version={{.Version}}'
+      - '--platform=linux/arm64'
+
+docker_manifests:
+  # basic
+  - name_template: 'foomo/gofana:latest'
+    image_templates:
+      - 'foomo/gofana:latest-amd64'
+      - 'foomo/gofana:latest-arm64'
+    skip_push: auto
+
+  - name_template: 'foomo/gofana:{{ .Version }}'
+    image_templates:
+      - 'foomo/gofana:{{ .Version }}-amd64'
+      - 'foomo/gofana:{{ .Version }}-arm64'
+    skip_push: auto
+
+  - name_template: 'foomo/gofana:{{ .Major }}'
+    image_templates:
+      - 'foomo/gofana:{{ .Major }}-amd64'
+      - 'foomo/gofana:{{ .Major }}-arm64'
+    skip_push: auto
+
+  - name_template: 'foomo/gofana:{{ .Major }}.{{ .Minor }}'
+    image_templates:
+      - 'foomo/gofana:{{ .Major }}.{{ .Minor }}-amd64'
+      - 'foomo/gofana:{{ .Major }}.{{ .Minor }}-arm64'
+    skip_push: auto

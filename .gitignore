@@ -2,6 +2,7 @@
 *.log
 *.pid
 *.retry
+*.out
 *.tgz
 *.zip
 *.pem
@@ -35,6 +36,9 @@ cache/
 
 ## Grafanactl
 grafanactl.yaml
+
+## Goreleaser
+!.goreleaser.yml
 
 ## Go
 go.work
